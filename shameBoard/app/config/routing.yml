@@ -1,0 +1,5 @@
+conrad_caine_shame_board:
+    resource: "@ConradCaineShameBoardBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
