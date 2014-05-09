@@ -1,9 +1,10 @@
 {% extends 'ConradCaineShameBoardBundle::base.html.twig' %}
 
 {% block body %}
+
 	<div class="container">
     <div class="page-header text-center">
-        <h1 id="timeline">Last Approved Shames</h1>
+        <h1 id="timeline">Last Approved Shames</h1><button data-toggle="modal" href="#myModal" type="button" class="btn btn-default">Add New Shame</button>
     </div>
     <ul class="timeline">
         <li>
@@ -137,5 +138,7 @@
         
         <li class="clearfix" style="float: none;"></li>
     </ul>
+
+    {{ include("ConradCaineShameBoardBundle:Default/elements:modal.html.twig") }}
 </div>
 {% endblock %}

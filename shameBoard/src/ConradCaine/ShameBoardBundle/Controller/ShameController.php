@@ -6,22 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use ConradCaine\ShameBoardBundle\Form\ShameType;
 use ConradCaine\ShameBoardBundle\Entity\Shame;
 
-class DefaultController extends Controller
+class ShameController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="new_shame", defaults={"type" = null})
      * @Template()
      */
     public function indexAction()
     {	
-    	$shame = new Shame();
-    	$form = $this->createForm(new ShameType(), $shame);
-
-    	return array(
-        	'form' =>$form->createView()
-    	);
+    	die("vai inserir");
     }
 }
