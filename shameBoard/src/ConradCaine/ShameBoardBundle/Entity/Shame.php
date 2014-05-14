@@ -41,6 +41,14 @@ class Shame
      */
     private $shameRuleId;
 
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="extra_points", type="integer", nullable=true)
+     */
+    private $extraPoints;
+
     /**
      * @var integer
      *
@@ -129,6 +137,27 @@ class Shame
     public function getShameRuleId()
     {
         return $this->shameRuleId;
+    }
+
+
+    /**
+     * @param $extraPoints
+     * @return Shame
+     */
+    public function setExtraPoints($extraPoints)
+    {
+        $this->extraPoints = $extraPoints;
+
+        return $this;
+    }
+
+    /**
+     * Get extraPoints
+     * @return int
+     */
+    public function getExtraPoints()
+    {
+        return $this->extraPoints;
     }
 
     /**

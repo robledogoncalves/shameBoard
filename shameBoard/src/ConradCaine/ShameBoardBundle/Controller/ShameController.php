@@ -11,6 +11,7 @@ use ConradCaine\ShameBoardBundle\Entity\Shame;
 use ConradCaine\ShameBoardBundle\Form\ShameType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 /**
@@ -45,14 +46,36 @@ class ShameController extends Controller
     }
 
     /**
-     * @Route("/create", name="create_shame", defaults={"type" = null})
+     * @Route("/create", name="create_shame")
      * @Method("POST")
      * @Template()
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
-        $formContent = $this->get('request');
+        $em = $this->getDoctrine()->getManager();
 
-        var_dump($formContent);die;
+        $shame = new Shame();
+
+        // pre sets
+        $currentDate = new \DateTime('now');
+        $shame->setDate($currentDate);
+
+            //TODO:If the logged in user add for himself set status to 1
+
+        $shame->setStatus(0);
+        // end pre sets
+
+        $form = $this->createForm(new ShameType(), $shame);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $formData = $form->getData();
+
+            $em->persist($formData);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('index_default'));
+        }
     }
 }

@@ -13,12 +13,12 @@ class ShameType extends AbstractType
         $builder->add('user');
         $builder->add('shameRule');
         $builder->add('description');
+        $builder->add('extraPoints');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         // $resolver->setDefaults(array(
-
         // ));
     }
 
