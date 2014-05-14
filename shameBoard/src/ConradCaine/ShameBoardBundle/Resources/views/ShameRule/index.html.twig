@@ -1,0 +1,28 @@
+{% extends 'ConradCaineShameBoardBundle::base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="page-header text-center">
+            <h1 id="timeline">ShameBoard Rules</h1><button data-toggle="modal" href="#myModal" type="button" class="btn btn-default">Add New Shame</button>
+        </div>
+        <ul class="list-unstyled">
+
+            {% for rule in shameRules %}
+            <li>
+                <div class="col-lg-8">
+                    <label>{{ rule.title }}</label>
+                </div>
+                <div class="col-lg-2">
+                    <a class="btn-info">Edit</a>
+                    <a class="btn-danger">Delete</a>
+                </div>
+            </li>
+            {% endfor %}
+
+           <li class="clearfix" style="float: none;"></li>
+        </ul>
+
+        {{ include("ConradCaineShameBoardBundle:ShameRule/elements:new.html.twig") }}
+    </div>
+{% endblock %}

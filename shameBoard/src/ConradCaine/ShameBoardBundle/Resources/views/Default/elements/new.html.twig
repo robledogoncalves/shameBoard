@@ -1,0 +1,25 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add New Shame</h4>
+            </div>
+
+            <form action="{{ path('create_shame') }}" method="post" {{ form_enctype(shameForm) }}>
+                <div class="modal-body">
+                    {{ form_widget(shameForm) }}
+                </div>
+
+                <div class="modal-footer form-actions">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
