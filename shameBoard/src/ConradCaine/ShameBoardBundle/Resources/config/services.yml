@@ -1,0 +1,3 @@
+services:
+    conrad.mailerService:
+        class: ConradCaine\ShameBoardBundle\Service\Mailer
