@@ -5,16 +5,14 @@ namespace ConradCaine\ShameBoardBundle\Controller;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 use ConradCaine\ShameBoardBundle\Entity\Shame;
 use ConradCaine\ShameBoardBundle\Form\ShameType;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 
 /**

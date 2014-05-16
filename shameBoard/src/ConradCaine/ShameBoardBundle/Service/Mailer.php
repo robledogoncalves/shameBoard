@@ -51,9 +51,11 @@ class Mailer
             'host'  => 'smtp.gmail.com',
             'port'  => '465',
             'ssl'   => 'ssl',
-            'user'  => 'gilvanritter@gmail.com',
-            'pass'  => 'ujrxljcoxrgadlnk',
+            'user'  => 'username@gmail.com',
+            'pass'  => '123131312312312',
         );
+
+        //TODO dummy acess data, add the server one
 
         $this->transport = \Swift_SmtpTransport::newInstance(
             $defaultTransport['host'],
