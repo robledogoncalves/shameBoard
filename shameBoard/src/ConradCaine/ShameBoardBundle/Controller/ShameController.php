@@ -31,11 +31,19 @@ class ShameController extends Controller
     public function indexAction()
     {
         $shameRepository = $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:Shame');
-
         $allShames = $shameRepository->findAll();
 
-//        var_dump($allShames);
+        $shame = new Shame();
+        $shameForm = $this->createForm(new ShameType(), $shame);
+
+        return $this->render('ConradCaineShameBoardBundle:Default:index.html.twig',
+                            array(
+                                'allShames' => $allShames,
+                                'shameForm' =>$shameForm->createView()
+                            ));
     }
+
+
 
 
     public function newAction()
@@ -43,7 +51,7 @@ class ShameController extends Controller
         $shame = new Shame();
         $shameForm = $this->createForm(new ShameType(), $shame);
 
-        $this->renderView('ConradCaineShameBoardBundle:Default:index.html.twig', array('shameForm' => $shameForm));
+        return $shameForm;
     }
 
     /**
@@ -80,6 +88,11 @@ class ShameController extends Controller
 
                 return $this->redirect($this->generateUrl('index_default'));
 
+            } catch (\Swift_SwiftException $se) {
+                var_dump($se->getMessage());
+                var_dump($se->getTrace());
+                die;
+
             } catch (Exception $e) {
                 var_dump($e->getMessage());
                 var_dump($e->getTrace());
@@ -90,13 +103,20 @@ class ShameController extends Controller
 
     private function sendEmail($formData)
     {
-        $mailData = $this->getEmailDetails($formData);
+        $messageData = $this->getEmailDetails($formData);
 
-        $mailerService = $this->get('conrad.mailerService');
+        try {
+            $message = \Swift_Message::newInstance()
+                ->setSubject($messageData['content']['subject'])
+                ->setFrom($messageData['from']['email'], $messageData['from']['name'])
+                ->setTo($messageData['to'])
+                ->setBody($messageData['content']['body']);
 
-        $mailerService->setup();
-        //TODO - FIX SWIFT MAILER
-        $mailerService->send($mailData);
+            $this->get('mailer')->send($message);
+
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     private function getEmailDetails($formData)
