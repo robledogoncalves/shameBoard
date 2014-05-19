@@ -2,7 +2,9 @@
 
 namespace ConradCaine\ShameBoardBundle\Controller;
 
+use ConradCaine\ShameBoardBundle\Form\ShameVoteType;
 use FOS\UserBundle\Model\UserInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use ConradCaine\ShameBoardBundle\Entity\Shame;
 use ConradCaine\ShameBoardBundle\Form\ShameType;
-
+use ConradCaine\ShameBoardBundle\Entity\ShameVote;
 
 /**
  * Class ShameController
@@ -36,10 +38,13 @@ class ShameController extends Controller
         $shame = new Shame();
         $shameForm = $this->createForm(new ShameType(), $shame);
 
+        $shameVoteForm = $this->createForm(new ShameVoteType(), new ShameVote());
+
         return $this->render('ConradCaineShameBoardBundle:Default:index.html.twig',
                             array(
                                 'allShames' => $allShames,
-                                'shameForm' =>$shameForm->createView()
+                                'shameForm' => $shameForm->createView(),
+                                'shameVoteForm' => $shameVoteForm->createView(),
                             ));
     }
 

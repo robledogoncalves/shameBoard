@@ -16,10 +16,7 @@ class ShameVoteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('user');
-        $builder->add('shame');
-        $builder->add('vote');
-        $builder->add('date');
+        $builder->add('shameId', 'hidden');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
