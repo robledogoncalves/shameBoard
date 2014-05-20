@@ -24,25 +24,61 @@ class ShameController extends Controller
     /**
      * @Route("", name="all_shames")
      * @Method("GET")
+     * @return JsonResponse
      */
     public function allAction()
     {
         $shameRepository= $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:Shame');
         $allShames = $shameRepository->findAll();
 
-        $jsonResponse = new JsonResponse($allShames, 200, array('Content-Type' => 'application/json'));
+        foreach ($allShames as $shame) {
+            $shamesArray[] = array(
+                'id'            => $shame->getId(),
+                'description'   => $shame->getDescription(),
+                'extraPoints'   => $shame->getExtraPoints(),
+                'user'          => array(
+                    'username'      => $shame->getUser()->getUsername(),
+                    'email'         => $shame->getUser()->getEmail(),
+                    'userId'        => $shame->getUser()->getId(),
+                ),
+                'date'          => array(
+                    'date'          => $shame->getDate()->getDate(),
+                    'timezone'      => $shame->getDate()->getTimezone(),
+                ),
+            );
+        }
 
-        return $jsonResponse;
+        $shamesData = array('shames' => $shamesArray);
+
+        return new JsonResponse($shamesData, 200, array('Content-Type' => 'application/json'));
     }
 
     /**
      * @Route("/get/{id}", name="get_shame")
      * @Method("GET")
      * @param $id
+     * @return JsonResponse
      */
     public function getAction($id)
     {
+        $shameRepository = $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:Shame');
+        $shame = $shameRepository->findOneBy(array('id' => $id));
 
+        $shameArray = array(
+            'id'            => $shame->getId(),
+            'description'   => $shame->getDescription(),
+            'extraPoints'   => $shame->getExtraPoints(),
+            'user'        => array(
+                'username'      => $shame->getUser()->getUsername(),
+                'email'         => $shame->getUser()->getEmail(),
+                'userId'        => $shame->getUser()->getId(),
+            ),
+            'date'          => $shame->getDate(),
+        );
+
+        $shameData = array('user' => $shameArray);
+
+        return new JsonResponse($shameData, 200, array('Content-Type' => 'application/json'));
     }
 
     /**
@@ -52,11 +88,15 @@ class ShameController extends Controller
      */
     public function addAction(Request $request)
     {
+        var_dump($request->get('description'));
+
         $em = $this->getDoctrine()->getManager();
         $shame = new Shame();
 
         $form = $this->createForm(new ShameType(), $shame);
         $form->handleRequest($request);
+
+        var_dump($form->getData());die;
 
         if ($form->isValid()) {
             try {
