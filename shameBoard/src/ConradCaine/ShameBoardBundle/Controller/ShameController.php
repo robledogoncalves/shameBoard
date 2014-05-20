@@ -30,8 +30,6 @@ class ShameController extends Controller
         $shameRepository= $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:Shame');
         $allShames = $shameRepository->findAll();
 
-        var_dump($allShames);die;
-
         $jsonResponse = new JsonResponse($allShames, 200, array('Content-Type' => 'application/json'));
 
         return $jsonResponse;
