@@ -28,10 +28,6 @@
 
                 <form action="{{ path('create_vote') }}" method="post" {{ form_enctype(shameVoteForm) }}>
 
-                    {#<input type="hidden" value="{{ shame.id }}" name="vote['shameId']">#}
-
-                    {{ form_widget(shameVoteForm.shameId, {id: shame.id, value: shame.id})}}
-
                     <button type="submit" class="btn btn-primary">Vote <i class="glyphicon glyphicon-thumbs-up"></i> </button>
                 </form>
 
