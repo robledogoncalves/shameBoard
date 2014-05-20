@@ -33,7 +33,9 @@ class ShameController extends Controller
     public function indexAction()
     {
         $shameRepository = $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:Shame');
-        $allShames = $shameRepository->findAll();
+        if(!$allShames = $shameRepository->findAll()){
+            $allShames = array();
+        }
 
         $shame = new Shame();
         $shameForm = $this->createForm(new ShameType(), $shame);
