@@ -10,15 +10,12 @@ namespace ConradCaine\ShameBoardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use ConradCaine\ShameBoardBundle\Form\ShameRuleType;
 use ConradCaine\ShameBoardBundle\Entity\ShameRule;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
-use Symfony\Component\Form\FormView;
 
 /**
  * Class ShameRuleController
@@ -29,53 +26,35 @@ class ShameRuleController extends Controller
 {
 
     /**
-     * @Route("", name="index_rule", defaults={"type" = null})
+     * @Route("", name="all_rules")
      * @Method("GET")
-     * @Template()
      */
-    public function indexAction()
+    public function allAction()
     {
         $shameRepository = $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:ShameRule');
         $allShameRules = $shameRepository->findAll();
 
-        $shameRuleForm = $this->newAction();
-
-        return array(
-            'shameRuleForm' => $shameRuleForm->createView(),
-            'shameRules' => $allShameRules,
-        );
+        //TODO return json response
     }
 
     /**
-     * @Route("/new", name="new_rule")
-     */
-    private function newAction()
-    {
-        $shameRule = new ShameRule();
-
-        $shameRuleForm = $this->createForm(new ShameRuleType(), $shameRule);
-        return $shameRuleForm;
-    }
-
-    /**
-     * @Route("/create", name="create_rule")
+     * @Route("/add", name="add_rule")
      * @Method("POST")
-     * @Template()
+     * @param Request $request
      */
-    public function createAction(Request $request)
+    public function addAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
         $form = $this->createForm(new ShameRuleType(), new ShameRule());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-
             $formData = $form->getData();
-
             $em->persist($formData);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('index_rule'));
         }
+
+        //TODO return json response
     }
 } 
