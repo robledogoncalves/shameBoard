@@ -42,15 +42,15 @@ class ShameController extends Controller
                     'userId'        => $shame->getUser()->getId(),
                 ),
                 'date'          => array(
-                    'date'          => $shame->getDate()->getDate(),
-                    'timezone'      => $shame->getDate()->getTimezone(),
+                    //'date'          => $shame->getDate()->getDate(),
+                    //'timezone'      => $shame->getDate()->getTimezone(),
                 ),
             );
         }
 
         $shamesData = array('shames' => $shamesArray);
 
-        return new JsonResponse($shamesData, 200, array('Content-Type' => 'application/json'));
+        return new JsonResponse($shamesArray, 200, array('Content-Type' => 'application/json'));
     }
 
     /**
@@ -82,7 +82,7 @@ class ShameController extends Controller
     }
 
     /**
-     * @Route("/add", name="add_shame")
+     * @Route("/add", name="create_shame")
      * @Method("POST")
      * @param Request $request
      */

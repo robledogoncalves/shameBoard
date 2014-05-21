@@ -1,24 +1,20 @@
 {% extends 'ConradCaineFrontendBundle::base.html.twig' %}
 
 {% block body %}
-
-	<div class="container">
+	<div class="container" ng-controller="ShameController">
     <div class="page-header text-center">
         <h1 id="timeline">Last Approved Shames</h1><button data-toggle="modal" href="#myModal" type="button" class="btn btn-default">Add New Shame</button>
     </div>
     <ul class="cbp_tmtimeline">
-        
-        {% for key,shame in allShames %}
-        <li>
-            <time class="cbp_tmtime" datetime="{{ shame.date|date("Y-m-d H:i:s") }}"><span>{{ shame.date|date("d/m/Y")  }}</span> <span>{{ shame.date|date("H:i")  }}</span></time>
-            <div class="cbp_tmicon" title="{{ shame.user.username }}"><img class="user-photo img-circle" src="{{ gravatar(shame.user.email) }}}" alt=""></div>
+        <li ng-repeat="shame in shames">
+            {% set userEmail = '{[{ shame.user.email }]}' %}
+            <time class="cbp_tmtime" datetime="{[{ shame.date }]}"><span>{[{ shame.date }]}</span> <span>{[{ shame.date  }]}</span></time>
+            <div class="cbp_tmicon" title="{[{ shame.user.username }]}"><img class="user-photo img-circle" src="{{ gravatar('{{ userEmail }}') }}" alt=""></div>
             <div class="cbp_tmlabel">
-                <h2>{{ shame.user.username }}: {{ shame.shameRule.description }}</h2>
-                <p>{{ shame.description }}</p>
+                <h2>{[{ shame.user.username }]}: Foi pego usando o facebook! </h2>
+                <p>{[{ shame.description}]} {{userEmail}}</p>
             </div>
         </li>
-        {% endfor %}
     </ul>
-    {{ include("ConradCaineFrontendBundle:Default/elements:new.html.twig") }}
 </div>
 {% endblock %}
