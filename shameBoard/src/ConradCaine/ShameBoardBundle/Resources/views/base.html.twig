@@ -7,19 +7,22 @@
         {% block stylesheets %}
             <link href="{{ asset('bundles/conradcaineshameboard/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('bundles/conradcaineshameboard/css/style.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('bundles/conradcaineshameboard/css/component.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('bundles/conradcaineshameboard/css/default.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
 
         <script src="{{ asset('bundles/conradcaineshameboard/js/jquery.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/conradcaineshameboard/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/conradcaineshameboard/js/script.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/conradcaineshameboard/js/angular.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/conradcaineshameboard/js/modernizr.custom.js') }}" type="text/javascript"></script>
     </head>
 
     <body>
         {% block navigation %}
             <div role="navigation" class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
-                    <div class="navbar-header">=
+                    <div class="navbar-header">
                         <a href="#" class="navbar-brand">ShameBoard #dev-version</a>
                     </div>
 

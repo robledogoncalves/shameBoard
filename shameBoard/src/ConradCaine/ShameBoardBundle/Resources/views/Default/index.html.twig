@@ -6,45 +6,19 @@
     <div class="page-header text-center">
         <h1 id="timeline">Last Approved Shames</h1><button data-toggle="modal" href="#myModal" type="button" class="btn btn-default">Add New Shame</button>
     </div>
-    <ul class="timeline">
-
+    <ul class="cbp_tmtimeline">
+        
         {% for key,shame in allShames %}
-
-        {% if key%2 == 0 %} <li> {% else %} <li class="timeline-inverted"> {% endif %}
-
-          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="{{ shame.date|date("F jS \\a\\t g:ia")  }}" id=""></i></a></div>
-          <div class="timeline-panel">
-
-            <div class="timeline-heading">
-              {#<img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />#}
+        <li>
+            <time class="cbp_tmtime" datetime="{{ shame.date|date("Y-m-d H:i:s") }}"><span>{{ shame.date|date("d/m/Y")  }}</span> <span>{{ shame.date|date("H:i")  }}</span></time>
+            <div class="cbp_tmicon" title="{{ shame.user.username }}"><img class="user-photo img-circle" src="{{ gravatar(shame.user.email) }}}" alt=""></div>
+            <div class="cbp_tmlabel">
+                <h2>{{ shame.user.username }}: {{ shame.shameRule.description }}</h2>
+                <p>{{ shame.description }}</p>
             </div>
-
-            <div class="timeline-body">
-                <p>{{ shame.shameRule.description }}</p>
-                <p>Extra info: {{ shame.description }}</p>
-            </div>
-            
-            <div class="timeline-footer">
-
-                <form action="{{ path('create_vote') }}" method="post" {{ form_enctype(shameVoteForm) }}>
-
-                    {#<input type="hidden" value="{{ shame.id }}" name="vote['shameId']">#}
-
-                    {{ form_widget(shameVoteForm.shameId, {id: shame.id, value: shame.id})}}
-
-                    <button type="submit" class="btn btn-primary">Vote <i class="glyphicon glyphicon-thumbs-up"></i> </button>
-                </form>
-
-                <a><i class="glyphicon glyphicon-share"></i></a>
-
-            </div>
-          </div>
         </li>
         {% endfor %}
-
-        <li class="clearfix" style="float: none;"></li>
     </ul>
-
     {{ include("ConradCaineShameBoardBundle:Default/elements:new.html.twig") }}
 </div>
 {% endblock %}
