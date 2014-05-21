@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new ConradCaine\ShameBoardBundle\ConradCaineShameBoardBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
+            new ConradCaine\FrontendBundle\ConradCaineFrontendBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

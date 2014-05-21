@@ -1,3 +1,8 @@
+conrad_caine_frontend:
+    resource: "@ConradCaineFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 conrad_caine_shame_board:
     resource: "@ConradCaineShameBoardBundle/Controller/"
     type:     annotation
