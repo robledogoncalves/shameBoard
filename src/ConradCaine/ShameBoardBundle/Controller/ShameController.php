@@ -40,7 +40,7 @@ class ShameController extends Controller
                     'username'      => $shame->getUser()->getUsername(),
                     'email'         => $shame->getUser()->getEmail(),
                     'userId'        => $shame->getUser()->getId(),
-                    'photoHash'     => md5($shame->getUser()->getEmail())
+                    'gravatarPhoto' => "http://www.gravatar.com/avatar/".md5($shame->getUser()->getEmail())."?s=40&r=g&d=http%3A%2F%2Fimageshack.com%2Fa%2Fimg835%2F4017%2Fndp4.png"
                 ),
                 'date'          => array(
                     'date'          => $shame->getDate()->format(\ DateTime::ISO8601),
