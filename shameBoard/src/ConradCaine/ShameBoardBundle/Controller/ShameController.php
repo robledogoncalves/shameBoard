@@ -42,8 +42,8 @@ class ShameController extends Controller
                     'userId'        => $shame->getUser()->getId(),
                 ),
                 'date'          => array(
-                    //'date'          => $shame->getDate()->getDate(),
-                    //'timezone'      => $shame->getDate()->getTimezone(),
+                    'date'          => $shame->getDate()->getTimestamp(),
+                    'timezone'      => $shame->getDate()->getTimezone(),
                 ),
             );
         }
