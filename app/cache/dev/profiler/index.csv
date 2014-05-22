@@ -79,3 +79,7 @@ f7281d,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/%7B%5B%7B%20sha
 b11eb7,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/%7B%5B%7B%20shame.user.gravatarPhoto%20%7D%5D%7D,1400779799,4e8fa0
 4e8fa0,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/%7B%5B%7B%20shame.user.gravatarPhoto%20%7D%5D%7D,1400779799,
 4fadbb,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/shame,1400779799,
+e8dd93,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/,1400780226,
+7bfd97,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/shame,1400780227,
+c825a1,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/%7B%5B%7B%20shame.user.gravatarPhoto%20%7D%5D%7D,1400780227,e54f01
+e54f01,127.0.0.1,GET,http://localhost/shameBoard/web/app_dev.php/%7B%5B%7B%20shame.user.gravatarPhoto%20%7D%5D%7D,1400780227,
