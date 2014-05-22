@@ -72,8 +72,3 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: ConradCaine\ShameBoardBundle\Entity\User
-
-ornicar_gravatar:
-  rating: g
-  size: 40
-  default: 'http://imageshack.com/a/img835/4017/ndp4.png'

@@ -7,16 +7,13 @@
     </div>
     <ul class="cbp_tmtimeline">
         <li ng-repeat="shame in shames">
-            {% set userEmail = '{[{ shame.user.email }]}' %}
-            <time class="cbp_tmtime" datetime="{[{ shame.date.date | date : 'yyyy-MM-dd HH:mm:ss' }]}"><span>{[{ shame.date.date | date : 'dd/MM/yyyy' }]}</span> <span>{[{ shame.date.date | date : 'HH:mm' }]}</span></time>
-            <div class="cbp_tmicon" title="{[{ shame.user.username }]}"><img class="user-photo img-circle" src="{{ gravatar('{{ userEmail }}') }}" alt=""></div>
+            <time class="cbp_tmtime" datetime="{[{ shame.date.date| date : 'yyyy-MM-dd HH:mm:ss' }]}"><span>{[{ shame.date.date|date : 'dd/MM/yyyy' }]}</span> <span>{[{ shame.date.date|date : 'HH:mm' }]}</span></time>
+            <div class="cbp_tmicon" title="{[{ shame.user.username }]}"><img class="user-photo img-circle" src="http://www.gravatar.com/avatar/{[{ shame.user.photoHash }]}?s=40&r=g&d=http%3A%2F%2Fimageshack.com%2Fa%2Fimg835%2F4017%2Fndp4.png" alt=""></div>
             <div class="cbp_tmlabel">
-                <h2>{[{ shame.user.username }]}: Foi pego usando o facebook! </h2>
-                <p>{[{ shame.description}]} {{userEmail}}</p>
+                <h2>{[{ shame.user.username }]}: {[{ shame.shameDesc }]} </h2>
+                <p>{[{ shame.description}]}</p>
             </div>
         </li>
     </ul>
 </div>
 {% endblock %}
-
-{# TO DO : check if timestamp is working on ShameController, check if gravatar function is working #}

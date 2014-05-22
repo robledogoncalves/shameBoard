@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use ConradCaine\ShameBoardBundle\Entity\Shame;
 use ConradCaine\ShameBoardBundle\Form\ShameType;
 
@@ -36,13 +35,15 @@ class ShameController extends Controller
                 'id'            => $shame->getId(),
                 'description'   => $shame->getDescription(),
                 'extraPoints'   => $shame->getExtraPoints(),
+                'shameDesc' => $shame->getShameRule()->getDescription(),
                 'user'          => array(
                     'username'      => $shame->getUser()->getUsername(),
                     'email'         => $shame->getUser()->getEmail(),
                     'userId'        => $shame->getUser()->getId(),
+                    'photoHash'     => md5($shame->getUser()->getEmail())
                 ),
                 'date'          => array(
-                    'date'          => $shame->getDate()->getTimestamp(),
+                    'date'          => $shame->getDate()->format(\ DateTime::ISO8601),
                     'timezone'      => $shame->getDate()->getTimezone(),
                 ),
             );
