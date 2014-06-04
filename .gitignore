@@ -2,7 +2,7 @@
 app/bootstrap*
 
 # Symfony directories
-vendor/*
+vendor
 */logs/*
 */cache/*
 web/uploads/*
@@ -14,3 +14,7 @@ app/config/parameters.yml
 
 # Composer
 composer.phar
+
+
+#PhpStorm
+.idea
