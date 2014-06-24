@@ -80,13 +80,12 @@ class ShameController extends Controller
         $shameService = $this->get('Conrad.ShameService');
 
         $shame = new Shame();
-
         $shameService->setShameData($shame, $request);
 
         $form = $this->createForm(new ShameType(), $shame);
         $form->handleRequest($request);
 
-        var_dump($form->getData());
+        //TODO WHY FORM IS NOT VALID
         var_dump($form->isValid());die;
 
         if ($form->isValid()) {
@@ -94,7 +93,6 @@ class ShameController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $formData = $form->getData();
                 $em->persist($formData);
-//                $this->sendEmail($formData);
                 $em->flush();
 
             } catch (\Swift_SwiftException $mailer) {

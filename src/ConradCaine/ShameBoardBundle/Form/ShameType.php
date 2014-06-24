@@ -13,7 +13,7 @@ class ShameType extends AbstractType
         $builder->add('description');
         $builder->add('extraPoints');
 
-        $builder->add('date');
+        $builder->add('date', 'datetime');
         $builder->add('status');
 
         $builder->add('shameRule');

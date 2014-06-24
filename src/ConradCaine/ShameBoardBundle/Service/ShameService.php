@@ -14,19 +14,36 @@ class ShameService
     private $gravatarSufix = '?s=40&r=g&d=http%3A%2F%2Fimageshack.com%2Fa%2Fimg835%2F4017%2Fndp4.png';
 
 
+    /**
+     * @param $shame
+     * @param $request
+     */
     public function setShameData($shame, $request)
     {
         $shame->setDescription($request->get('description'));
         $shame->setExtraPoints($request->get('extraPoints'));
 
-        $shame->setStatus($request->get('status'));
-
         $shame->setShameRule($request->get('shameRule'));
         $shame->setIndicted($request->get('indicted'));
         $shame->setReporter($request->get('reporter'));
 
+        $shameRegistrationStatus = $this->handleShameRegistrationStatus($request);
+        $shame->setStatus($shameRegistrationStatus);
+
         $shameRegistrationDate = $this->handleShameRegistrationDate($request);
         $shame->setDate($shameRegistrationDate);
+    }
+
+    /**
+     * @param $request
+     * @return int
+     */
+    private function handleShameRegistrationStatus($request)
+    {
+        if (!$request->get('status')) {
+            return 1;
+        }
+        return 1000;
     }
 
     /**
@@ -35,11 +52,9 @@ class ShameService
      */
     private function handleShameRegistrationDate($request)
     {
-        if (is_null($request->get('date'))) {
-            $currentDate = new \DateTime('now');
-            return $currentDate;
+        if (!$request->get('date')) {
+            return new \DateTime('now');
         }
-
         return $request->get('date');
     }
 
@@ -67,7 +82,7 @@ class ShameService
             'id'            => $shameObject->getId(),
             'description'   => $shameObject->getDescription(),
             'extraPoints'   => $shameObject->getExtraPoints(),
-            'shameDesc'     => $shameObject->getShameRule()->getDescription(),
+            'shameDescription'  => $shameObject->getShameRule()->getDescription(),
             'indicted'          => array(
                 'username'      => $shameObject->getIndicted()->getUsername(),
                 'email'         => $shameObject->getIndicted()->getEmail(),
