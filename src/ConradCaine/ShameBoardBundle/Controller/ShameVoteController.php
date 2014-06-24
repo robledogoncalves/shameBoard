@@ -1,27 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gritt
- * Date: 5/19/14
- * Time: 3:55 PM
- */
 
 namespace ConradCaine\ShameBoardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use ConradCaine\ShameBoardBundle\Entity\ShameVote;
 use ConradCaine\ShameBoardBundle\Form\ShameVoteType;
 
-
 /**
  * Class ShameVoteController
  * @package ConradCaine\ShameBoardBundle\Controller
- * @Route("/vote")
+ * @Route("/votes")
  */
 class ShameVoteController extends Controller
 {

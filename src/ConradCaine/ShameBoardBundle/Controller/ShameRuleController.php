@@ -1,16 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gritt
- * Date: 5/14/14
- * Time: 1:53 PM
- */
 
 namespace ConradCaine\ShameBoardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,14 +14,13 @@ use ConradCaine\ShameBoardBundle\Entity\ShameRule;
 
 /**
  * Class ShameRuleController
- * @Route("/rule")
+ * @Route("/rules")
  * @package ConradCaine\ShameBoardBundle\Controller
  */
 class ShameRuleController extends Controller
 {
-
     /**
-     * @Route("", name="all_rules")
+     * @Route("/", name="all_rules")
      * @Method("GET")
      */
     public function allAction()
