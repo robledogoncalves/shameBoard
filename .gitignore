@@ -15,7 +15,7 @@ app/bootstrap*
 # Managed by Composer
 /app/bootstrap.php.cache
 /bin/
-/vendor/
+/vendor
 
 # Assets and user uploads
 /web/bundles/
