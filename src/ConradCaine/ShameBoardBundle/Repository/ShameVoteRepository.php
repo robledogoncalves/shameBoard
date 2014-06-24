@@ -1,6 +1,6 @@
 <?php
 
-namespace ConradCaine\ShameBoardBundle\Entity;
+namespace ConradCaine\ShameBoardBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
