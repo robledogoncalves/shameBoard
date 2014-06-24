@@ -14,72 +14,60 @@ use ConradCaine\ShameBoardBundle\Form\ShameType;
 
 /**
  * Class ShameController
- * @Route("/shame")
+ * @Route("/shames")
  * @package ConradCaine\ShameBoardBundle\Controller
  */
-
 class ShameController extends Controller
 {
     /**
-     * @Route("", name="all_shames")
+     * @Route("/", name="all_shames")
      * @Method("GET")
      * @return JsonResponse
      */
     public function allAction()
     {
-        $shameRepository= $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:Shame');
-        $allShames = $shameRepository->findAll();
+        $shameService = $this->get('Conrad.ShameService');
+        $allShames = $this->shameRepository()->findAll();
 
-        foreach ($allShames as $shame) {
-            $shamesArray[] = array(
-                'id'            => $shame->getId(),
-                'description'   => $shame->getDescription(),
-                'extraPoints'   => $shame->getExtraPoints(),
-                'shameDesc' => $shame->getShameRule()->getDescription(),
-                'user'          => array(
-                    'username'      => $shame->getUser()->getUsername(),
-                    'email'         => $shame->getUser()->getEmail(),
-                    'userId'        => $shame->getUser()->getId(),
-                    'gravatarPhoto' => "http://www.gravatar.com/avatar/".md5($shame->getUser()->getEmail())."?s=40&r=g&d=http%3A%2F%2Fimageshack.com%2Fa%2Fimg835%2F4017%2Fndp4.png"
-                ),
-                'date'          => array(
-                    'date'          => $shame->getDate()->format(\ DateTime::ISO8601),
-                    'timezone'      => $shame->getDate()->getTimezone(),
-                ),
-            );
+        if (count($allShames) < 1) {
+            return $shameService->noDataFoundMessage();
         }
 
-        $shamesData = array('shames' => $shamesArray);
+        foreach ($allShames as $shame) {
 
-        return new JsonResponse($shamesArray, 200, array('Content-Type' => 'application/json'));
+            var_dump($shame->getReporter());
+            var_dump($shame->getIndicted());
+
+            var_dump($shame);die;
+
+            $shameDataArray[] = $shameService->getShameDataArray($shame);
+        }
+
+        if (!isset($shameDataArray)) {
+            return $shameService->noDataFoundMessage();
+        }
+
+        return new JsonResponse(array('shames' => $shameDataArray), 200, array('Content-Type' => 'application/json'));
     }
 
     /**
-     * @Route("/get/{id}", name="get_shame")
+     * @Route("/get/{shameId}", name="get_shame")
      * @Method("GET")
-     * @param $id
+     * @param $shameId
      * @return JsonResponse
      */
-    public function getAction($id)
+    public function getAction($shameId)
     {
-        $shameRepository = $this->getDoctrine()->getRepository('ConradCaineShameBoardBundle:Shame');
-        $shame = $shameRepository->findOneBy(array('id' => $id));
+        $shameService = $this->get('Conrad.ShameService');
+        $shame = $this->shameRepository()->findOneBy(array('id' => $shameId));
 
-        $shameArray = array(
-            'id'            => $shame->getId(),
-            'description'   => $shame->getDescription(),
-            'extraPoints'   => $shame->getExtraPoints(),
-            'user'        => array(
-                'username'      => $shame->getUser()->getUsername(),
-                'email'         => $shame->getUser()->getEmail(),
-                'userId'        => $shame->getUser()->getId(),
-            ),
-            'date'          => $shame->getDate(),
-        );
+        if (is_null($shame)) {
+            return $shameService->noDataFoundMessage();
+        }
 
-        $shameData = array('user' => $shameArray);
+        $shameDataArray = $shameService->getShameDataArray($shame);
 
-        return new JsonResponse($shameData, 200, array('Content-Type' => 'application/json'));
+        return new JsonResponse(array('shames' => $shameDataArray), 200, array('Content-Type' => 'application/json'));
     }
 
     /**
@@ -89,35 +77,51 @@ class ShameController extends Controller
      */
     public function addAction(Request $request)
     {
-        var_dump($request->get('description'));
+        $shameService = $this->get('Conrad.ShameService');
 
-        $em = $this->getDoctrine()->getManager();
         $shame = new Shame();
+
+        $shameService->setShameData($shame, $request);
 
         $form = $this->createForm(new ShameType(), $shame);
         $form->handleRequest($request);
 
-        var_dump($form->getData());die;
+        var_dump($form->getData());
+        var_dump($form->isValid());die;
 
         if ($form->isValid()) {
             try {
-
+                $em = $this->getDoctrine()->getManager();
                 $formData = $form->getData();
                 $em->persist($formData);
-
-                $this->sendEmail($formData);
+//                $this->sendEmail($formData);
                 $em->flush();
 
-            } catch (\Swift_SwiftException $se) {
-                var_dump($se->getMessage());
-                var_dump($se->getTrace());
+            } catch (\Swift_SwiftException $mailer) {
+                var_dump($mailer->getMessage());
+                var_dump($mailer->getTrace());
                 die;
 
-            } catch (Exception $e) {
-                var_dump($e->getMessage());
-                var_dump($e->getTrace());
+            } catch (ORMInvalidArgumentException $orm) {
+                var_dump($orm->getMessage());
+                var_dump($orm->getTrace());
+                die;
+
+            } catch (\Exception $ex) {
+                var_dump($ex->getMessage());
+                var_dump($ex->getTrace());
                 die;
             }
         }
     }
+
+    private function shameRepository()
+    {
+        $em = $this->getDoctrine();
+        $shameRepository = $em->getRepository('ConradCaineShameBoardBundle:Shame');
+
+        return $shameRepository;
+    }
 }
+
+
