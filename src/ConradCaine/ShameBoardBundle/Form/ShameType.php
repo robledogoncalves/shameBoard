@@ -10,10 +10,15 @@ class ShameType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('user');
-        $builder->add('shameRule');
         $builder->add('description');
         $builder->add('extraPoints');
+
+        $builder->add('date');
+        $builder->add('status');
+
+        $builder->add('shameRule');
+        $builder->add('indicted');
+        $builder->add('reporter');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
