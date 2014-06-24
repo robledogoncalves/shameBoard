@@ -12,7 +12,7 @@ use Symfony\Component\Filesystem\Filesystem;
  * Shame
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="ConradCaine\ShameBoardBundle\Entity\ShameRepository")
+ * @ORM\Entity(repositoryClass="ConradCaine\ShameBoardBundle\Repository\ShameRepository")
  * @ORM\HasLifecycleCallbacks
  */
 
@@ -37,24 +37,9 @@ class Shame
     /**
      * @var integer
      *
-     * @ORM\Column(name="shame_rule_id", type="integer")
-     */
-    private $shameRuleId;
-
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="extra_points", type="integer", nullable=true)
      */
     private $extraPoints;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_id", type="integer")
-     */
-    private $userId;
 
     /**
      * @var \DateTime
@@ -72,44 +57,52 @@ class Shame
 
     /**
      * @ORM\ManyToOne(targetEntity="ShameRule")
-     * @ORM\JoinColumn(name="shame_rule_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="shame_rule_id", referencedColumnName="id", nullable=false)
      */
-    protected $shameRule;
+    private $shameRule;
 
-     /**
+    /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="reporter_id", referencedColumnName="id", nullable=false)
      */
-    protected $user;
-
+    private $reporter;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="indicted_id", referencedColumnName="id", nullable=false)
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $indicted;
 
     /**
-     * Set description
-     *
-     * @param string $description
-     * @return Shame
+     * @param \DateTime $date
+     * @return $this
      */
-    public function setDescription($description)
+    public function setDate($date)
     {
-        $this->description = $description;
-
+        $this->date = $date;
         return $this;
     }
 
     /**
-     * Get description
-     *
-     * @return string 
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string
      */
     public function getDescription()
     {
@@ -117,42 +110,16 @@ class Shame
     }
 
     /**
-     * Set shameRuleId
-     *
-     * @param integer $shameRuleId
-     * @return Shame
-     */
-    public function setShameRuleId($shameRuleId)
-    {
-        $this->shameRuleId = $shameRuleId;
-
-        return $this;
-    }
-
-    /**
-     * Get shameRuleId
-     *
-     * @return integer 
-     */
-    public function getShameRuleId()
-    {
-        return $this->shameRuleId;
-    }
-
-
-    /**
-     * @param $extraPoints
-     * @return Shame
+     * @param int $extraPoints
+     * @return $this
      */
     public function setExtraPoints($extraPoints)
     {
         $this->extraPoints = $extraPoints;
-
         return $this;
     }
 
     /**
-     * Get extraPoints
      * @return int
      */
     public function getExtraPoints()
@@ -161,96 +128,93 @@ class Shame
     }
 
     /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return Shame
+     * @param int $id
+     * @return $this
      */
-    public function setUserId($userId)
+    public function setId($id)
     {
-        $this->userId = $userId;
-
+        $this->id = $id;
         return $this;
     }
 
     /**
-     * Get userId
-     *
-     * @return integer 
+     * @return int
      */
-    public function getUserId()
+    public function getId()
     {
-        return $this->userId;
+        return $this->id;
     }
 
     /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return Shame
+     * @param mixed $indicted
+     * @return $this
      */
-    public function setDate($date)
+    public function setIndicted($indicted)
     {
-        $this->date = $date;
-
+        $this->indicted = $indicted;
         return $this;
     }
 
     /**
-     * Get date
-     *
-     * @return \DateTime 
+     * @return mixed
      */
-    public function getDate()
+    public function getIndicted()
     {
-        return $this->date;
+        return $this->indicted;
     }
 
     /**
-     * Set status
-     *
-     * @param integer $status
-     * @return Shame
+     * @param mixed $reporter
+     * @return $this
      */
-    public function setStatus($status)
+    public function setReporter($reporter)
     {
-        $this->status = $status;
-
+        $this->reporter = $reporter;
         return $this;
     }
 
     /**
-     * Get status
-     *
-     * @return integer 
+     * @return mixed
      */
-    public function getStatus()
+    public function getReporter()
     {
-        return $this->status;
+        return $this->reporter;
     }
 
+    /**
+     * @param mixed $shameRule
+     * @return $this
+     */
     public function setShameRule($shameRule)
     {
         $this->shameRule = $shameRule;
-
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getShameRule()
     {
         return $this->shameRule;
     }
 
-    public function setUser($user)
+    /**
+     * @param int $status
+     * @return $this
+     */
+    public function setStatus($status)
     {
-        $this->user = $user;
-
+        $this->status = $status;
         return $this;
     }
 
-    public function getUser()
+    /**
+     * @return int
+     */
+    public function getStatus()
     {
-        return $this->user;
+        return $this->status;
     }
 
     public function __toString()
