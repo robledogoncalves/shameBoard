@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * VoteToken
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="ConradCaine\ShameBoardBundle\Entity\VoteTokenRepository")
+ * @ORM\Entity(repositoryClass="ConradCaine\ShameBoardBundle\Repository\VoteTokenRepository")
  */
 class VoteToken
 {

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ShameRule
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="ConradCaine\ShameBoardBundle\Entity\ShameRuleRepository")
+ * @ORM\Entity(repositoryClass="ConradCaine\ShameBoardBundle\Repository\ShameRuleRepository")
  */
 class ShameRule
 {
