@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * Class DefaultController
+ * @package ConradCaine\FrontendBundle\Controller
+ * @Route("/client")
+ */
 class DefaultController extends Controller
 {
     /**
